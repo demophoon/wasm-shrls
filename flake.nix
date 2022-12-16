@@ -2,7 +2,7 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-21.11";
+    nixpkgs.url = "github:nixos/nixpkgs/release-22.11";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -10,8 +10,11 @@
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
-        packages.tinygo = pkgs.tinygo;
-        devShell = pkgs.mkShell { buildInputs = [pkgs.tinygo]; };
+        devShell = pkgs.mkShell {
+          buildInputs = [
+            pkgs.go
+          ];
+        };
       }
     );
 }
